@@ -64,9 +64,6 @@ __9__, and __10__ allow __4__s of the __1__ to be compared
 #Place holder for each blaks
 place_holder = ['__1__', '__2__', '__3__', '__4__', '__5__', '__6__', '__7__', '__8__', '__9__', '__10__']
 
-#answers for each blanks of each level
-answers = {'easy': ['world', 'python', 'print', 'html'],'medium': ['function', 'arguments', 'None', 'list'], 'hard': ['Intelligence','Vision','Language','Learning']}
-
 #-----------------------------------------------------------
 # welcome massage for user to play a game
 def welcome_massage():
@@ -80,6 +77,15 @@ def define_difficulty():
     else:
         print 'Dear user your choise is invalid! Please try again!\n'
         return define_difficulty()
+
+# define the correct answer of different difficulty
+def get_correct_answer(difficulty):
+    if difficulty == 'easy':
+        return ['world', 'python', 'print', 'html']
+    if difficulty == 'medium':
+        return ['function', 'arguments', 'None', 'list']
+    else:
+        return ['answer1','answer2','answer3','answer4','answer5', 'answer6', 'answer7', 'answer8', 'answer9', 'answer10' ]
         
 # give the user the start massage and rule to play
 def start_game_massage(difficulty):
@@ -101,32 +107,35 @@ def list_of_text_game(text_for_game):
     return text_for_game.split()
 
 # check list_of_text_game and find blanks in this list
-def find_blanks_in_list_of_game(list_of_text, place_holder_list):
+def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_correct_answers):
+    index_of_answer = 0
     for holder in place_holder_list:
-        print "\nlist of holder in place_holder_list: " + holder
+        #print "\nlist of holder in place_holder_list: " + holder
         for words in list_of_text:
-            print "\nList of the words in List_of_text: " + words 
+            #print "\nList of the words in List_of_text: " + words 
             if holder in words:
                 #return holder
                 #ask user to fill out the blanks
-                raw_input("\nPlease fill out " + holder+ " with the correct answer: ")
+                answer= raw_input("\nPlease fill out " + holder+ " with the correct answer: ")
+                print check_answer_of_user(answer, list_with_correct_answers, index_of_answer)
                 break
+        index_of_answer += 1
+        print index_of_answer
     return None
 
-#check the answer of user 
+#compare the answer of user with the list of answers
+def check_answer_of_user(user_response, list_of_correct_answer, index_of_answer):
+    for word_user in user_response:
+        if word_user in list_of_correct_answer[0]:  
+            print "user's answer is correct: " + user_response
+            return "correct"
+        else:
+            print "This answer is not correct: " + user_response + " PLease try again!"
+            return "False!"
 
+        
     
-    
-
-
-# ask user for answer of blanks in this list or 
-
-
-
-
-#def check_answer_of_user(answer):
-    
-
+ 
 
 def start_game():
     # Welcome to the user
@@ -134,6 +143,9 @@ def start_game():
 
     # Get the difficulty from the user
     difficulty = define_difficulty()
+
+    correct_answer_for_difficulty = get_correct_answer(difficulty)
+    print correct_answer_for_difficulty
 
     # Inform the user about the start and dificulty
     start_game_massage(difficulty)
@@ -147,10 +159,8 @@ def start_game():
 
     # Ask the user questions till game over or win
     # Loop over list and give the method every single word
-    find_blanks_in_list_of_game(list_of_the_text, place_holder)
-    
-    # Check answer
-    #check_answer_of_user(answer)
+    find_blanks_in_list_of_game(list_of_the_text, place_holder, correct_answer_for_difficulty)
+
 
 
 
