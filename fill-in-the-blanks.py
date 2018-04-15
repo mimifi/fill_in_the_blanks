@@ -117,21 +117,25 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
                 #return holder
                 #ask user to fill out the blanks
                 answer= raw_input("\nPlease fill out " + holder+ " with the correct answer: ")
-                print check_answer_of_user(answer, list_with_correct_answers, index_of_answer)
+                index_of_false_answer = 0
+                if check_answer_of_user(answer, list_with_correct_answers[index_of_answer]) == False:
+                    print "Dear user, your answer is wrong. Please try again!" 
+                    return raw_input("\nPlease fill out " + holder+ " with the correct answer: ")                
+                index_of_false_answer = index_of_false_answer + 1    
+                #print list_with_correct_answers
+                #print index_of_answer
                 break
         index_of_answer += 1
-        print index_of_answer
+        #print index_of_answer
     return None
 
 #compare the answer of user with the list of answers
-def check_answer_of_user(user_response, list_of_correct_answer, index_of_answer):
-    for word_user in user_response:
-        if word_user in list_of_correct_answer[0]:  
-            print "user's answer is correct: " + user_response
-            return "correct"
-        else:
-            print "This answer is not correct: " + user_response + " PLease try again!"
-            return "False!"
+def check_answer_of_user(user_response, correct_answer): 
+    print "User_response: " + user_response + " and correct answer: " + correct_answer
+    return user_response == correct_answer
+    
+        
+            
 
         
     
@@ -145,7 +149,6 @@ def start_game():
     difficulty = define_difficulty()
 
     correct_answer_for_difficulty = get_correct_answer(difficulty)
-    print correct_answer_for_difficulty
 
     # Inform the user about the start and dificulty
     start_game_massage(difficulty)
