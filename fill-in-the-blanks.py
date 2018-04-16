@@ -117,11 +117,9 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
                 #return holder
                 #ask user to fill out the blanks
                 answer= raw_input("\nPlease fill out " + holder+ " with the correct answer: ")
-                index_of_false_answer = 0
                 if check_answer_of_user(answer, list_with_correct_answers[index_of_answer]) == False:
-                    print "Dear user, your answer is wrong. Please try again!" 
-                    return raw_input("\nPlease fill out " + holder+ " with the correct answer: ")                
-                index_of_false_answer = index_of_false_answer + 1    
+                    print "Dear user, your answer is wrong."
+                    return try_again_for_answer(list_with_correct_answers[index_of_answer])   
                 #print list_with_correct_answers
                 #print index_of_answer
                 break
@@ -133,6 +131,24 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
 def check_answer_of_user(user_response, correct_answer): 
     print "User_response: " + user_response + " and correct answer: " + correct_answer
     return user_response == correct_answer
+
+#give user more chance to give the right answer
+def try_again_for_answer(correct_answer):
+    index_of_false_answer = 0
+    number_of_try = 3
+    while index_of_false_answer < number_of_try:
+        new_user_response = raw_input("\nPlease try again: ")
+        if new_user_response == correct_answer:
+            return new_user_response
+        else:
+            index_of_false_answer += 1
+            #print index_of_false_answer
+            if index_of_false_answer == number_of_try:
+                print "Game over!"
+            
+        
+
+
     
         
             
