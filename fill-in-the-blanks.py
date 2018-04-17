@@ -143,8 +143,8 @@ def try_again_for_answer(correct_answer):
         else:
             index_of_false_answer += 1
             print index_of_false_answer
-            #if index_of_false_answer == number_of_try:
-            #    print "Game over!"
+            if index_of_false_answer == number_of_try:
+                print "Game over!"
             
         
 
