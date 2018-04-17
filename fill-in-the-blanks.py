@@ -145,6 +145,7 @@ def try_again_for_answer(correct_answer):
             print index_of_false_answer
             if index_of_false_answer == number_of_try:
                 print "Game over!"
+                break
             
         
 
