@@ -203,13 +203,14 @@ def start_game():
 
      #finish the game - congratulation massage to user
     if result_of_game:
-        print congratulation_massage()
+        end_massage = congratulation_massage()
+        if end_massage == "Y":
+            start_game()
+        else:
+            return 
     else:
         print "Game over!"
-
-  
-
-
+    
 
 
 start_game()
