@@ -119,8 +119,8 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
                 answer= raw_input("\nPlease fill out " + holder+ " with the correct answer: ")
                 if not check_answer_of_user(answer, list_with_correct_answers[index_of_answer]):
                     print "Dear user, your answer is wrong."
-                    new_try = try_again_for_answer(list_with_correct_answers[index_of_answer])  
-                    if new_try:
+                    answer = try_again_for_answer(list_with_correct_answers[index_of_answer])  
+                    if answer:
                         print "Success and now the next question :)"
                     else:
                         print "Game over!"
@@ -130,6 +130,7 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
                 break
         index_of_answer += 1
         #print index_of_answer
+        print replace_the_correct_answer(list_of_text, place_holder_list, answer)
     return None
 
 #compare the answer of user with the list of answers
@@ -149,6 +150,18 @@ def try_again_for_answer(correct_answer):
             index_of_false_answer += 1
             print ('user try no. '+ str(index_of_false_answer))
         
+
+def replace_the_correct_answer(list_of_text, list_of_place_holder, user_correct_response):
+    replaced = []
+    #index = 0
+    for word in list_of_text:
+        for holder in list_of_place_holder:
+            if not holder in word:
+                replaced.append(word)
+            else:
+                replaced.append(user_correct_response)
+            break
+    return " ".join(replaced)
 
 
     
