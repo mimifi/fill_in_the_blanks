@@ -125,7 +125,6 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
                         list_of_text = replace_the_correct_answer(list_of_text, holder, answer)
                         print " ".join(list_of_text)
                     else:
-                        print "Game over!"
                         return False
                 else:
                     list_of_text = replace_the_correct_answer(list_of_text, holder, answer)
@@ -136,6 +135,7 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
                 break
         index_of_answer += 1
         #print index_of_answer
+    return True
 
 
 
@@ -168,13 +168,12 @@ def replace_the_correct_answer(list_of_text, holder, user_correct_response):
     return replaced
 
 
-
+def congratulation_massage():
+    return raw_input ("\nDear user, congratulation! Do you like to play again? Y/N ")
 
     
         
-            
-
-        
+         
     
  
 
@@ -199,8 +198,16 @@ def start_game():
 
     # Ask the user questions till game over or win
     # Loop over list and give the method every single word
-    find_blanks_in_list_of_game(list_of_the_text, place_holder, correct_answer_for_difficulty)
+    result_of_game = find_blanks_in_list_of_game(list_of_the_text, place_holder, correct_answer_for_difficulty)
 
+
+     #finish the game - congratulation massage to user
+    if result_of_game:
+        print congratulation_massage()
+    else:
+        print "Game over!"
+
+  
 
 
 
