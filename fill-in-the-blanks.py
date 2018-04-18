@@ -134,7 +134,7 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
 
 #compare the answer of user with the list of answers
 def check_answer_of_user(user_response, correct_answer): 
-    print "User_response: " + user_response + " and correct answer: " + correct_answer
+    #print "User_response: " + user_response + " and correct answer: " + correct_answer
     return user_response == correct_answer
 
 #give user more chance to give the right answer
@@ -147,7 +147,7 @@ def try_again_for_answer(correct_answer):
             return new_user_response
         else:
             index_of_false_answer += 1
-            print index_of_false_answer          
+            print ('user try no. '+ str(index_of_false_answer))
         
 
 
