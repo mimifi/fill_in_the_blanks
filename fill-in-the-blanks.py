@@ -121,17 +121,23 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
                     print "Dear user, your answer is wrong."
                     answer = try_again_for_answer(list_with_correct_answers[index_of_answer])  
                     if answer:
-                        print "Success and now the next question :)"
+                        #print "Success and now the next question :)"
+                        list_of_text = replace_the_correct_answer(list_of_text, holder, answer)
+                        print " ".join(list_of_text)
                     else:
                         print "Game over!"
                         return False
+                else:
+                    list_of_text = replace_the_correct_answer(list_of_text, holder, answer)
+                    print " ".join(list_of_text)
+
                 #print list_with_correct_answers
                 #print index_of_answer
                 break
         index_of_answer += 1
         #print index_of_answer
-        print replace_the_correct_answer(list_of_text, place_holder_list, answer)
-    return None
+
+
 
 #compare the answer of user with the list of answers
 def check_answer_of_user(user_response, correct_answer): 
@@ -151,17 +157,17 @@ def try_again_for_answer(correct_answer):
             print ('user try no. '+ str(index_of_false_answer))
         
 
-def replace_the_correct_answer(list_of_text, list_of_place_holder, user_correct_response):
+def replace_the_correct_answer(list_of_text, holder, user_correct_response):
     replaced = []
     #index = 0
     for word in list_of_text:
-        for holder in list_of_place_holder:
-            if not holder in word:
-                replaced.append(word)
-            else:
-                replaced.append(user_correct_response)
-            break
-    return " ".join(replaced)
+        if not holder in word:
+            replaced.append(word)
+        else:
+            replaced.append(user_correct_response)
+    return replaced
+
+
 
 
     
