@@ -65,7 +65,6 @@ place_holder = ['__1__', '__2__', '__3__', '__4__', '__5__', '__6__', '__7__', '
 
 
 # -----------------------------------------------------------
-# welcome massage for user to play a game
 def welcome_massage():
     """
     1. Give user welcome massage to play a game
@@ -75,8 +74,12 @@ def welcome_massage():
     print "Welcome to our fill_in_blank game!"
 
 
-# request user to define the difficulty level of this game
 def define_difficulty():
+    """
+    1. Request user to define the difficulty level for a game
+    2. Inputs: -
+    3. Outputs: difficulty
+    """
     request_user_difficulty = raw_input(
         'Please select a game difficulty by typing it in! \nPossible choices include easy, medium, and hard.\n')
     if request_user_difficulty == 'easy' or request_user_difficulty == 'medium' or request_user_difficulty == 'hard':
@@ -86,8 +89,12 @@ def define_difficulty():
         return define_difficulty()
 
 
-# define the correct answer of different difficulty
 def get_correct_answer(difficulty):
+    """
+    1. Define the correct answer for texts of different difficulty
+    2. Inputs: difficulty
+    3. Outputs: right answers of blanks for each level
+    """
     if difficulty == 'easy':
         return ['world', 'python', 'print', 'html']
     if difficulty == 'medium':
@@ -97,13 +104,22 @@ def get_correct_answer(difficulty):
                 'answer10']
 
 
-# give the user the start massage and rule to play
 def start_game_massage(difficulty):
-    print "You have choosen level " + difficulty + "!\nHere is the text for your game. Have fun :)\n"
+    """
+   1. Give user the start massage and rules to play
+   2. Inputs: difficulty
+   3. Outputs: -
+   """
+
+    print "You have choose level " + difficulty + "!\nHere is the text for your game. Have fun :)\n"
 
 
-# give the user the appropriate text to play
 def text_game(difficulty):
+    """
+   1. Give user the appropriate text to play
+   2. Inputs: difficulty
+   3. Outputs: text to play the appropriate level of game
+   """
     if difficulty == 'easy':
         return easy
     if difficulty == 'medium':
@@ -112,9 +128,13 @@ def text_game(difficulty):
         return hard
 
 
-# create a list from text_game
 def list_of_text_game(text_for_game):
-    assert (text_for_game != None), "No text for the game!"
+    """
+   1. Create a list from text of game
+   2. Inputs:   #1 text_for_game - A text that contains blanks to play the game
+   3. Outputs: A list with all words of text of the game
+   """
+    assert (text_for_game is not None), "No text for the game!"
 
     return text_for_game.split()
 
@@ -151,14 +171,23 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
     return True
 
 
-# compare the answer of user with the list of answers
 def check_answer_of_user(user_response, correct_answer):
+    """
+   1. Compare the answer of user with the list of right answers
+   2. Inputs:   #1 user_response: the answer of user for each blanks
+                #2 correct_answer: the correct answer for each blanks
+   3. Outputs: Boolean - True if user's answer if as same as the correct answer and false if not.
+   """
     # print "User_response: " + user_response + " and correct answer: " + correct_answer
     return user_response == correct_answer
 
 
-# give user more chance to give the right answer
 def try_again_for_answer(correct_answer):
+    """
+   1. Give user more chance to try and give the right answer
+   2. Inputs:  the correct answer for each blanks
+   3. Outputs: new answer of user
+   """
     index_of_false_answer = 0
     number_of_try = 3
     while index_of_false_answer < number_of_try:
@@ -171,10 +200,17 @@ def try_again_for_answer(correct_answer):
 
 
 def replace_the_correct_answer(list_of_text, holder, user_correct_response):
+    """
+   1. Replace the blanks with correct answers of user
+   2. Inputs:   #1 list_of_text: The list of the text of the gae
+                #2 holder: blanks of the text
+                #3 user_correct_response: right answer of user
+   3. Outputs: replace the blanks in text of game with answer of user
+   """
     replaced = []
     # index = 0
     for word in list_of_text:
-        if not holder in word:
+        if holder not in word:
             replaced.append(word)
         else:
             replaced.append(user_correct_response)
@@ -182,10 +218,20 @@ def replace_the_correct_answer(list_of_text, holder, user_correct_response):
 
 
 def congratulation_massage():
+    """
+    1. Replace the blanks with correct answers of user
+    2. Inputs: -
+    3. Outputs: -
+    """
     return raw_input("\nDear user, congratulation! Do you like to play again? Y/N ")
 
 
 def start_game():
+    """
+    1. Start the game to play
+    2. Inputs: -
+    3. Outputs: -
+    """
     # Welcome to the user
     welcome_massage()
 
