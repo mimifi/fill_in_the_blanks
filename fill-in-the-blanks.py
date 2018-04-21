@@ -47,7 +47,6 @@ allow + and - to be used by __4__s of the __1__.  Similarly, __8__,
 __9__, and __10__ allow __4__s of the __1__ to be compared
 (with <, >, and ==).'''
 
-
 # The answer for ___1___ is 'function'. Can you figure out the others?
 
 # We've also given you a file called fill-in-the-blanks.pyc which is a working version of the project.
@@ -61,22 +60,31 @@ __9__, and __10__ allow __4__s of the __1__ to be compared
 # How can you adapt that design to work with numbered blanks?
 
 
-#Place holder for each blaks
+# Place holder for each blaks
 place_holder = ['__1__', '__2__', '__3__', '__4__', '__5__', '__6__', '__7__', '__8__', '__9__', '__10__']
 
-#-----------------------------------------------------------
+
+# -----------------------------------------------------------
 # welcome massage for user to play a game
 def welcome_massage():
+    """
+    1. Give user welcome massage to play a game
+    2. Inputs: -
+    3. Outputs: -
+    """
     print "Welcome to our fill_in_blank game!"
+
 
 # request user to define the difficulty level of this game
 def define_difficulty():
-    request_user_difficulty = raw_input('Please select a game difficulty by typing it in! \nPossible choices include easy, medium, and hard.\n')
-    if request_user_difficulty == 'easy' or request_user_difficulty == 'medium' or request_user_difficulty == 'hard': 
+    request_user_difficulty = raw_input(
+        'Please select a game difficulty by typing it in! \nPossible choices include easy, medium, and hard.\n')
+    if request_user_difficulty == 'easy' or request_user_difficulty == 'medium' or request_user_difficulty == 'hard':
         return request_user_difficulty
     else:
         print 'Dear user your choise is invalid! Please try again!\n'
         return define_difficulty()
+
 
 # define the correct answer of different difficulty
 def get_correct_answer(difficulty):
@@ -85,11 +93,14 @@ def get_correct_answer(difficulty):
     if difficulty == 'medium':
         return ['function', 'arguments', 'None', 'list']
     else:
-        return ['answer1','answer2','answer3','answer4','answer5', 'answer6', 'answer7', 'answer8', 'answer9', 'answer10' ]
-        
+        return ['answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'answer7', 'answer8', 'answer9',
+                'answer10']
+
+
 # give the user the start massage and rule to play
 def start_game_massage(difficulty):
-    print "You have choosen level " + difficulty + "!\nHere is the text for your game. Have fun :)\n" 
+    print "You have choosen level " + difficulty + "!\nHere is the text for your game. Have fun :)\n"
+
 
 # give the user the appropriate text to play
 def text_game(difficulty):
@@ -100,28 +111,30 @@ def text_game(difficulty):
     else:
         return hard
 
+
 # create a list from text_game
 def list_of_text_game(text_for_game):
     assert (text_for_game != None), "No text for the game!"
 
     return text_for_game.split()
 
+
 # check list_of_text_game and find blanks in this list
 def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_correct_answers):
     index_of_answer = 0
     for holder in place_holder_list:
-        #print "\nlist of holder in place_holder_list: " + holder
+        # print "\nlist of holder in place_holder_list: " + holder
         for words in list_of_text:
-            #print "\nList of the words in List_of_text: " + words 
+            # print "\nList of the words in List_of_text: " + words
             if holder in words:
-                #return holder
-                #ask user to fill out the blanks
-                answer= raw_input("\nPlease fill out " + holder+ " with the correct answer: ")
+                # return holder
+                # ask user to fill out the blanks
+                answer = raw_input("\nPlease fill out " + holder + " with the correct answer: ")
                 if not check_answer_of_user(answer, list_with_correct_answers[index_of_answer]):
                     print "Dear user, your answer is wrong."
-                    answer = try_again_for_answer(list_with_correct_answers[index_of_answer])  
+                    answer = try_again_for_answer(list_with_correct_answers[index_of_answer])
                     if answer:
-                        #print "Success and now the next question :)"
+                        # print "Success and now the next question :)"
                         list_of_text = replace_the_correct_answer(list_of_text, holder, answer)
                         print " ".join(list_of_text)
                     else:
@@ -130,21 +143,21 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
                     list_of_text = replace_the_correct_answer(list_of_text, holder, answer)
                     print " ".join(list_of_text)
 
-                #print list_with_correct_answers
-                #print index_of_answer
+                # print list_with_correct_answers
+                # print index_of_answer
                 break
         index_of_answer += 1
-        #print index_of_answer
+        # print index_of_answer
     return True
 
 
-
-#compare the answer of user with the list of answers
-def check_answer_of_user(user_response, correct_answer): 
-    #print "User_response: " + user_response + " and correct answer: " + correct_answer
+# compare the answer of user with the list of answers
+def check_answer_of_user(user_response, correct_answer):
+    # print "User_response: " + user_response + " and correct answer: " + correct_answer
     return user_response == correct_answer
 
-#give user more chance to give the right answer
+
+# give user more chance to give the right answer
 def try_again_for_answer(correct_answer):
     index_of_false_answer = 0
     number_of_try = 3
@@ -154,12 +167,12 @@ def try_again_for_answer(correct_answer):
             return new_user_response
         else:
             index_of_false_answer += 1
-            print ('user try no. '+ str(index_of_false_answer))
-        
+            print ('user try no. ' + str(index_of_false_answer))
+
 
 def replace_the_correct_answer(list_of_text, holder, user_correct_response):
     replaced = []
-    #index = 0
+    # index = 0
     for word in list_of_text:
         if not holder in word:
             replaced.append(word)
@@ -169,13 +182,8 @@ def replace_the_correct_answer(list_of_text, holder, user_correct_response):
 
 
 def congratulation_massage():
-    return raw_input ("\nDear user, congratulation! Do you like to play again? Y/N ")
+    return raw_input("\nDear user, congratulation! Do you like to play again? Y/N ")
 
-    
-        
-         
-    
- 
 
 def start_game():
     # Welcome to the user
@@ -200,17 +208,15 @@ def start_game():
     # Loop over list and give the method every single word
     result_of_game = find_blanks_in_list_of_game(list_of_the_text, place_holder, correct_answer_for_difficulty)
 
-
-     #finish the game - congratulation massage to user
+    # finish the game - congratulation massage to user
     if result_of_game:
         end_massage = congratulation_massage()
         if end_massage == "Y":
             start_game()
         else:
-            return 
+            return
     else:
         print "Game over!"
-    
 
 
 start_game()
