@@ -141,6 +141,13 @@ def list_of_text_game(text_for_game):
 
 # check list_of_text_game and find blanks in this list
 def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_correct_answers):
+    """
+    1. Ask user to fill out the blanks in the text
+    2. Inputs: #1 list_of_text: list of text of game
+               #2 place_holder_list: list of blanks
+               #3 list_with_correct_answers: list of correct answers for blanks
+    3. Output: Boolean, if True user won the game else user has lose!
+    """
     index_of_answer = 0
     for holder in place_holder_list:
         # print "\nlist of holder in place_holder_list: " + holder
@@ -161,6 +168,14 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
 
 
 def check_different_answers_of_user(list_of_text, holder, new_answer, correct_answer):
+    """
+    1. ask user to answer again if answer was false
+    2. Inputs: #1 list_of_text: List of text of game
+               #2 holder: a blank
+               #3 new_answer: new answer of user for blank
+               #4 correct_answer: correct answer for blank
+    3. Outputs: If user's answer right, give back the list with answer, else give an empty list
+    """
     if not check_answer_of_user(new_answer, correct_answer):
         print "Dear user, your new_answer is wrong."
         new_answer = try_again_for_answer(correct_answer)
@@ -184,7 +199,7 @@ def check_answer_of_user(user_response, correct_answer):
    1. Compare the answer of user with the list of right answers
    2. Inputs:   #1 user_response: the answer of user for each blanks
                 #2 correct_answer: the correct answer for each blanks
-   3. Outputs: Boolean - True if user's answer if as same as the correct answer and false if not.
+   3. Outputs: Boolean - True if user's answer as same as the correct answer and false if not.
    """
     # print "User_response: " + user_response + " and correct answer: " + correct_answer
     return user_response == correct_answer
@@ -248,10 +263,10 @@ def start_game():
 
     correct_answer_for_difficulty = get_correct_answer(difficulty)
 
-    # Inform the user about the start and dificulty
+    # Inform the user about the start and difficulty
     start_game_massage(difficulty)
 
-    # Get the text for the dificulty
+    # Get the text for the difficulty
     text_for_game = text_game(difficulty)
     print text_for_game
 
@@ -265,7 +280,7 @@ def start_game():
     # finish the game - congratulation massage to user
     if result_of_game:
         end_massage = congratulation_massage()
-        if end_massage == "Y":
+        if end_massage.upper() == "Y":
             start_game()
         else:
             return
