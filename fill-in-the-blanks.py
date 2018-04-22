@@ -150,25 +150,33 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
                 # return holder
                 # ask user to fill out the blanks
                 answer = raw_input("\nPlease fill out " + holder + " with the correct answer: ")
-                if not check_answer_of_user(answer, list_with_correct_answers[index_of_answer]):
-                    print "Dear user, your answer is wrong."
-                    answer = try_again_for_answer(list_with_correct_answers[index_of_answer])
-                    if answer:
-                        # print "Success and now the next question :)"
-                        list_of_text = replace_the_correct_answer(list_of_text, holder, answer)
-                        print " ".join(list_of_text)
-                    else:
-                        return False
-                else:
-                    list_of_text = replace_the_correct_answer(list_of_text, holder, answer)
-                    print " ".join(list_of_text)
-
-                # print list_with_correct_answers
-                # print index_of_answer
+                correct_answer = list_with_correct_answers[index_of_answer]
+                list_of_text = check_different_answers_of_user(list_of_text, holder, answer, correct_answer)
+                if len(list_of_text) == 0:
+                    return False
                 break
         index_of_answer += 1
         # print index_of_answer
     return True
+
+
+def check_different_answers_of_user(list_of_text, holder, new_answer, correct_answer):
+    if not check_answer_of_user(new_answer, correct_answer):
+        print "Dear user, your new_answer is wrong."
+        new_answer = try_again_for_answer(correct_answer)
+        if new_answer:
+            # print "Success and now the next question :)"
+            list_of_text = replace_the_correct_answer(list_of_text, holder, new_answer)
+            print " ".join(list_of_text)
+            return list_of_text
+        else:
+            return []
+    else:
+        list_of_text = replace_the_correct_answer(list_of_text, holder, new_answer)
+        print " ".join(list_of_text)
+        return list_of_text
+        # print list_with_correct_answers
+        # print index_of_answer
 
 
 def check_answer_of_user(user_response, correct_answer):
