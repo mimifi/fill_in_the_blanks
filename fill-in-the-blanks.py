@@ -89,6 +89,20 @@ def define_difficulty():
         return define_difficulty()
 
 
+def num_of_try_answer():
+    """
+    1. Ask user to give the number of try for answer
+    2. Inputs: -
+    3. Output: number of try
+    """
+    num_try = raw_input('Dear user how often do you like to try for right answer? Please type a number: ')
+    if num_try.isdigit():
+        return num_try
+    else:
+        print 'This is not a valid number, please try again.'
+        return num_of_try_answer()
+
+
 def get_correct_answer(difficulty):
     """
     1. Define the correct answer for texts of different difficulty
@@ -140,12 +154,13 @@ def list_of_text_game(text_for_game):
 
 
 # check list_of_text_game and find blanks in this list
-def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_correct_answers):
+def find_blanks_in_list_of_game(max_try_amount, list_of_text, place_holder_list, list_with_correct_answers):
     """
     1. Ask user to fill out the blanks in the text
-    2. Inputs: #1 list_of_text: list of text of game
-               #2 place_holder_list: list of blanks
-               #3 list_with_correct_answers: list of correct answers for blanks
+    2. Inputs: #1 Number of try to answer
+               #2 list_of_text: list of text of game
+               #3 place_holder_list: list of blanks
+               #4 list_with_correct_answers: list of correct answers for blanks
     3. Output: Boolean, if True user won the game else user has lose!
     """
     index_of_answer = 0
@@ -158,7 +173,8 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
                 # ask user to fill out the blanks
                 answer = raw_input("\nPlease fill out " + holder + " with the correct answer: ")
                 correct_answer = list_with_correct_answers[index_of_answer]
-                list_of_text = check_different_answers_of_user(list_of_text, holder, answer, correct_answer)
+                list_of_text = check_different_answers_of_user(max_try_amount, list_of_text, holder, answer,
+                                                               correct_answer)
                 if len(list_of_text) == 0:
                     return False
                 break
@@ -167,18 +183,19 @@ def find_blanks_in_list_of_game(list_of_text, place_holder_list, list_with_corre
     return True
 
 
-def check_different_answers_of_user(list_of_text, holder, new_answer, correct_answer):
+def check_different_answers_of_user(max_try_amount, list_of_text, holder, new_answer, correct_answer):
     """
     1. ask user to answer again if answer was false
-    2. Inputs: #1 list_of_text: List of text of game
-               #2 holder: a blank
-               #3 new_answer: new answer of user for blank
-               #4 correct_answer: correct answer for blank
+    2. Inputs: #1 Number of try to answer
+               #2 list_of_text: List of text of game
+               #3 holder: a blank
+               #4 new_answer: new answer of user for blank
+               #5 correct_answer: correct answer for blank
     3. Outputs: If user's answer right, give back the list with answer, else give an empty list
     """
     if not check_answer_of_user(new_answer, correct_answer):
-        print "Dear user, your new_answer is wrong."
-        new_answer = try_again_for_answer(correct_answer)
+        print "Dear user, your answer is wrong."
+        new_answer = try_again_for_answer(max_try_amount, correct_answer)
         if new_answer:
             # print "Success and now the next question :)"
             list_of_text = replace_the_correct_answer(list_of_text, holder, new_answer)
@@ -205,21 +222,22 @@ def check_answer_of_user(user_response, correct_answer):
     return user_response == correct_answer
 
 
-def try_again_for_answer(correct_answer):
+def try_again_for_answer(max_try_amount, correct_answer):
     """
    1. Give user more chance to try and give the right answer
-   2. Inputs:  the correct answer for each blanks
+   2. Inputs: #1 Number of try to answer
+              #2 Correct answer for each blanks
    3. Outputs: new answer of user
    """
     index_of_false_answer = 0
-    number_of_try = 3
+    number_of_try = int(max_try_amount) - 1
     while index_of_false_answer < number_of_try:
         new_user_response = raw_input("\nPlease try again: ")
         if new_user_response == correct_answer:
             return new_user_response
         else:
             index_of_false_answer += 1
-            print ('user try no. ' + str(index_of_false_answer))
+            # print ('user try no. ' + str(index_of_false_answer))
 
 
 def replace_the_correct_answer(list_of_text, holder, user_correct_response):
@@ -263,6 +281,9 @@ def start_game():
 
     correct_answer_for_difficulty = get_correct_answer(difficulty)
 
+    # Ask user to write the number of try to give an answer
+    max_try_amount = num_of_try_answer()
+
     # Inform the user about the start and difficulty
     start_game_massage(difficulty)
 
@@ -275,7 +296,8 @@ def start_game():
 
     # Ask the user questions till game over or win
     # Loop over list and give the method every single word
-    result_of_game = find_blanks_in_list_of_game(list_of_the_text, place_holder, correct_answer_for_difficulty)
+    result_of_game = find_blanks_in_list_of_game(max_try_amount, list_of_the_text, place_holder,
+                                                 correct_answer_for_difficulty)
 
     # finish the game - congratulation massage to user
     if result_of_game:
