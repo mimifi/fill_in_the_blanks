@@ -82,10 +82,10 @@ def define_difficulty():
     """
     request_user_difficulty = raw_input(
         'Please select a game difficulty by typing it in! \nPossible choices include easy, medium, and hard.\n')
-    if request_user_difficulty == 'easy' or request_user_difficulty == 'medium' or request_user_difficulty == 'hard':
+    if request_user_difficulty in ("easy", "medium", "hard"):
         return request_user_difficulty
     else:
-        print 'Dear user your choise is invalid! Please try again!\n'
+        print 'Dear user your choice is invalid! Please try again!\n'
         return define_difficulty()
 
 
